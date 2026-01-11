@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prajwal Kumbhar | Personal Website</title>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+  <style>
+    /* ---------- General Styles ---------- */
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Helvetica Neue', sans-serif; }
+    body { background: #0a0a0c; color: #eee; line-height: 1.6; scroll-behavior: smooth; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ---------- Circle Animation Styles ---------- */
+    .animation-wrapper {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100px;
+      margin-top: 2rem;
+      z-index: 5;
+    }
+    .circle {
+      position: relative;
+      width: 20px;
+      height: 20px;
+      border-radius: 100%;
+      background-color: turquoise;
+      animation: move-the-circle 1s infinite;
+      transform-origin: center center;
+    }
+    /* Manual CSS instead of SCSS loop */
+    .circle:nth-child(1) { left: -105px; animation-delay: 0.1s; }
+    .circle:nth-child(2) { left: -75px; animation-delay: 0.2s; }
+    .circle:nth-child(3) { left: -45px; animation-delay: 0.3s; }
+    .circle:nth-child(4) { left: -15px; animation-delay: 0.4s; }
+    .circle:nth-child(5) { left: 15px; animation-delay: 0.5s; }
+    .circle:nth-child(6) { left: 45px; animation-delay: 0.6s; }
+    .circle:nth-child(7) { left: 75px; animation-delay: 0.7s; }
+    .circle:nth-child(8) { left: 105px; animation-delay: 0.8s; }
+
+    @keyframes move-the-circle {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(0, 50px); }
+    }
+
+    /* ---------- Star Border Navigation ---------- */
+    nav {
+      position: fixed;
+      top: 0; width: 100%;
+      display: flex; justify-content: space-around;
+      gap: 1.2rem; padding: 1.2rem 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .star-border-container {
+      display: inline-block; position: relative;
+      border-radius: 20px; overflow: hidden;
+      padding: 1px 0; transition: transform 0.3s ease;
+    }
+    .border-gradient-bottom, .border-gradient-top {
+      position: absolute; width: 300%; height: 50%; opacity: 0.7; border-radius: 50%; z-index: 0;
+    }
+    .border-gradient-bottom {
+      bottom: -12px; right: -250%; background: radial-gradient(circle, #7cff67, transparent 15%);
+      animation: star-movement-bottom 6s linear infinite alternate;
+    }
+    .border-gradient-top {
+      top: -12px; left: -250%; background: radial-gradient(circle, #7cff67, transparent 15%);
+      animation: star-movement-top 6s linear infinite alternate;
+    }
+    .nav-inner-content {
+      position: relative; background: #061c13; color: white;
+      font-size: 14px; font-weight: 500; padding: 8px 20px; border-radius: 20px;
+      z-index: 1; display: block; transition: color 0.3s; border: 1px solid #222;
+    }
+    .star-border-container:hover .nav-inner-content { color: #7cff67; }
+
+    /* ---------- Sections ---------- */
+    section { 
+      min-height: 100vh; padding: 100px 20px 50px; 
+      display: flex; flex-direction: column; 
+      align-items: center; justify-content: center; 
+      text-align: center; position: relative; overflow: hidden; background: #0a0a0c; 
+    }
+    .aurora-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+    .content-wrap { position: relative; z-index: 1; width: 100%; max-width: 1100px; }
+
+    /* ---------- Magic Bento Project Cards ---------- */
+    .projects { display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; margin-top: 2rem; }
+    .project { 
+        position: relative; background: #060010; padding: 1.5rem; border-radius: 20px; 
+        width: 300px; border: 1px solid #392e4e; overflow: hidden; cursor: pointer;
+        transform-style: preserve-3d; perspective: 1000px;
+        --glow-x: 50%; --glow-y: 50%; --glow-opacity: 0;
+    }
+    .project::after {
+        content: ''; position: absolute; inset: 0; padding: 2px;
+        background: radial-gradient(300px circle at var(--glow-x) var(--glow-y), rgba(124, 255, 103, 0.4) 0%, transparent 70%);
+        border-radius: inherit; -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; 
+        opacity: var(--glow-opacity); transition: opacity 0.3s ease;
+    }
+    .project img { width: 100%; border-radius: 12px; margin-bottom: 1rem; pointer-events: none; }
+    .code-btn { display: inline-block; padding: 0.6rem 1.2rem; background: #7cff67; color: #000; border-radius: 8px; font-weight: bold; transition: 0.3s; position: relative; z-index: 2; }
+    .code-btn:hover { background: #fff; transform: scale(1.05); }
+
+    /* ---------- Form & UI ---------- */
+    #contact form { display: flex; flex-direction: column; gap: 1rem; max-width: 450px; width: 100%; margin: 20px auto 0; }
+    #contact input, #contact textarea { padding: 1rem; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px; color: #fff; }
+    #contact button { padding: 1rem; border: none; background: #5227FF; color: #fff; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+    #contact button:hover { background: #7cff67; color: #000; }
+    .shiny-text { background: linear-gradient(90deg, #7cff67, #fff, #5227FF); -webkit-background-clip: text; background-clip: text; color: transparent; background-size: 200%; animation: shine 6s linear infinite; }
+    @keyframes shine { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+    .spark-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; }
+
+    /* ---------- Footer Styles ---------- */
+    footer {
+      padding: 3rem 0;
+      background: #050506;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .footer-socials {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    .footer-socials a img {
+      width: 30px;
+      height: 30px;
+      transition: all 0.3s ease;
+      filter: invert(1); /* Makes black icons white to fit dark theme */
+    }
+    .footer-socials a:hover img {
+      transform: translateY(-5px);
+      filter: invert(0.5) sepia(1) saturate(5) hue-rotate(70deg); /* Glow green on hover */
+    }
+    .copyright {
+      font-size: 0.9rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="star-border-container"><div class="border-gradient-bottom"></div><div class="border-gradient-top"></div><a href="#hero" class="nav-inner-content">Home</a></div>
+    <div class="star-border-container"><div class="border-gradient-bottom"></div><div class="border-gradient-top"></div><a href="#about" class="nav-inner-content">About</a></div>
+    <div class="star-border-container"><div class="border-gradient-bottom"></div><div class="border-gradient-top"></div><a href="#portfolio" class="nav-inner-content">Portfolio</a></div>
+    <div class="star-border-container"><div class="border-gradient-bottom"></div><div class="border-gradient-top"></div><a href="#contact" class="nav-inner-content">Contact</a></div>
+  </nav>
+
+  <section id="hero">
+    <div id="aurora-bg" class="aurora-container"></div>
+    <canvas class="spark-canvas"></canvas>
+    <div class="content-wrap">
+        <h1 class="shiny-text">Hello, I'm Prajwal Sachin Kumbhar</h1>
+        <p>I love design, coding, and creating beautiful experiences online.</p>
+        
+        <div class="animation-wrapper">
+            <div class="circle"></div><div class="circle"></div><div class="circle"></div><div class="circle"></div>
+            <div class="circle"></div><div class="circle"></div><div class="circle"></div><div class="circle"></div>
+        </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <canvas class="spark-canvas"></canvas>
+    <div class="content-wrap">
+        <h1 class="shiny-text">About Me</h1>
+        <p style="max-width: 700px; margin: 0 auto; color: #bbb;">I am a passionate Full-Stack Developer and UI/UX enthusiast. I enjoy building digital products that are not only functional but also visually stunning. With a strong foundation in Python, JavaScript, and modern web technologies, I bridge the gap between creative design and robust engineering.</p>
+    </div>
+  </section>
+
+  <section id="portfolio">
+    <canvas class="spark-canvas"></canvas>
+    <div class="content-wrap">
+        <h1 class="shiny-text">Portfolio</h1>
+        <div class="projects">
+          <div class="project magic-card">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-S8l6N1gMgEBbnri_qHGlc43BSn_-qGLqFw&s" alt="Calculator">
+            <h3>Simple Calculator</h3>
+            <p>A feature-rich Python calculator supporting advanced arithmetic and average calculations.</p>
+            <a href="https://github.com/prajwalkumbhar123/Simple-Calculator" class="code-btn">Code</a>
+          </div>
+          <div class="project magic-card">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-hgy3YKd2pv8VdRDzKUuN9fQ3Ug5l8IK1Qg&s" alt="Grocery">
+            <h3>Grocery Store System</h3>
+            <p>Smart inventory and cart management simulation built with Python for seamless retail UX.</p>
+            <a href="https://github.com/prajwalkumbhar123/Python-Mini-Project-Grocery-Store-Cart-System" class="code-btn">Code</a>
+          </div>
+        </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <canvas class="spark-canvas"></canvas>
+    <div class="content-wrap">
+        <h1 class="shiny-text">Contact Me</h1>
+        <form>
+          <input type="text" placeholder="Your Name" required>
+          <input type="email" placeholder="Your Email" required>
+          <textarea placeholder="Your Message" rows="5" required></textarea>
+          <button type="submit">Send Message</button>
+        </form>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-socials">
+      <a href="https://www.linkedin.com/in/prajwal-kumbhar-2b949a398/" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn">
+      </a>
+      <a href="https://www.instagram.com/_prajwal.kumbhar_/" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram">
+      </a>
+      <a href="https://github.com/prajwalkumbhar123?tab=repositories" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub">
+      </a>
+    </div>
+    <div class="copyright">
+      &copy; 2026 Prajwal Sachin Kumbhar. All rights reserved.
+    </div>
+  </footer>
+
+  <script type="module">
+    import { Renderer, Program, Mesh, Color, Triangle } from 'https://cdn.skypack.dev/ogl';
+    const VERT = `#version 300 es
+    in vec2 position; void main() { gl_Position = vec4(position, 0.0, 1.0); }`;
+    const FRAG = `#version 300 es
+    precision highp float; uniform float uTime; uniform float uAmplitude; uniform vec3 uColorStops[3]; uniform vec2 uResolution; uniform float uBlend; out vec4 fragColor;
+    vec3 permute(vec3 x) { return mod(((x * 34.0) + 1.0) * x, 289.0); }
+    float snoise(vec2 v){
+      const vec4 C = vec4(0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439);
+      vec2 i = floor(v + dot(v, C.yy)); vec2 x0 = v - i + dot(i, C.xx); vec2 i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+      vec4 x12 = x0.xyxy + C.xxzz; x12.xy -= i1; i = mod(i, 289.0);
+      vec3 p = permute(permute(i.y + vec3(0.0, i1.y, 1.0)) + i.x + vec3(0.0, i1.x, 1.0));
+      vec3 m = max(0.5 - vec3(dot(x0, x0), dot(x12.xy, x12.xy), dot(x12.zw, x12.zw)), 0.0);
+      m = m * m; m = m * m; vec3 x = 2.0 * fract(p * C.www) - 1.0; vec3 h = abs(x) - 0.5;
+      vec3 ox = floor(x + 0.5); vec3 a0 = x - ox; m *= 1.79284291400159 - 0.85373472095314 * (a0*a0 + h*h);
+      vec3 g; g.x = a0.x * x0.x + h.x * x0.y; g.yz = a0.yz * x12.xz + h.yz * x12.yw; return 130.0 * dot(m, g);
+    }
+    void main() {
+      vec2 uv = gl_FragCoord.xy / uResolution; float height = snoise(vec2(uv.x * 2.0 + uTime * 0.1, uTime * 0.25)) * 0.5 * uAmplitude;
+      height = exp(height); height = (uv.y * 2.0 - height + 0.2); float intensity = 0.6 * height;
+      float auroraAlpha = smoothstep(0.20 - uBlend * 0.5, 0.20 + uBlend * 0.5, intensity);
+      vec3 col = mix(uColorStops[0], uColorStops[1], uv.x);
+      fragColor = vec4(intensity * col * auroraAlpha, auroraAlpha);
+    } `;
+
+    function initAurora(containerId, colors) {
+      const container = document.getElementById(containerId);
+      const renderer = new Renderer({ alpha: true, premultipliedAlpha: true, antialias: true });
+      const gl = renderer.gl; gl.enable(gl.BLEND); gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+      container.appendChild(gl.canvas);
+      const geometry = new Triangle(gl);
+      const colorStopsArray = colors.map(hex => { const c = new Color(hex); return [c.r, c.g, c.b]; });
+      const program = new Program(gl, { vertex: VERT, fragment: FRAG, uniforms: { uTime: { value: 0 }, uAmplitude: { value: 1.0 }, uColorStops: { value: colorStopsArray }, uResolution: { value: [container.offsetWidth, container.offsetHeight] }, uBlend: { value: 0.5 } } });
+      const mesh = new Mesh(gl, { geometry, program });
+      function resize() { renderer.setSize(container.offsetWidth, container.offsetHeight); program.uniforms.uResolution.value = [container.offsetWidth, container.offsetHeight]; }
+      window.addEventListener('resize', resize); resize();
+      function update(t) { requestAnimationFrame(update); program.uniforms.uTime.value = t * 0.0001; renderer.render({ scene: mesh }); }
+      requestAnimationFrame(update);
+    }
+    initAurora('aurora-bg', ['#5227FF', '#7cff67', '#5227FF']);
+  </script>
+
+  <script>
+    const mCards = document.querySelectorAll('.magic-card');
+    mCards.forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left; const y = e.clientY - rect.top;
+        card.style.setProperty('--glow-x', `${x}px`); card.style.setProperty('--glow-y', `${y}px`); card.style.setProperty('--glow-opacity', '1');
+        gsap.to(card, { rotateX: (y - rect.height/2) / 12, rotateY: (rect.width/2 - x) / 12, x: (x - rect.width/2) / 10, y: (y - rect.height/2) / 10, duration: 0.3 });
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.setProperty('--glow-opacity', '0');
+        gsap.to(card, { rotateX: 0, rotateY: 0, x: 0, y: 0, duration: 0.6, ease: "elastic.out(1, 0.5)" });
+      });
+    });
+
+    const sections = document.querySelectorAll('section');
+    sections.forEach(section => {
+      const canvas = section.querySelector('.spark-canvas');
+      if(!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let sparks = [];
+      function resize() { canvas.width = section.offsetWidth; canvas.height = section.offsetHeight; }
+      window.addEventListener('resize', resize); resize();
+      section.addEventListener('click', e => {
+        const rect = canvas.getBoundingClientRect();
+        for(let i=0; i<8; i++) sparks.push({ x: e.clientX - rect.left, y: e.clientY - rect.top, angle: (Math.PI * 2 * i) / 8, startTime: performance.now() });
+      });
+      function animate(now) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        sparks = sparks.filter(s => {
+          const elapsed = now - s.startTime; if(elapsed > 800) return false;
+          const t = elapsed / 800; const dist = t * (2 - t) * 50;
+          ctx.strokeStyle = "#7cff67"; ctx.lineWidth = 2; ctx.beginPath();
+          const x = s.x + dist * Math.cos(s.angle); const y = s.y + dist * Math.sin(s.angle);
+          ctx.moveTo(x, y); ctx.lineTo(x + 10 * Math.cos(s.angle), y + 10 * Math.sin(s.angle));
+          ctx.stroke(); return true;
+        });
+        requestAnimationFrame(animate);
+      }
+      requestAnimationFrame(animate);
+    });
+  </script>
+</body>
+</html>
