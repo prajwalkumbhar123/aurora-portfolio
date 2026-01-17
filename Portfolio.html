@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prajwal Kumbhar | Developer</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0a0f;
+      color: #e2e8f0;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .animated-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(120,119,198,0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255,119,198,0.15) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(120,219,255,0.1) 0%, transparent 50%),
+        radial-gradient(circle at 90% 80%, rgba(255,119,198,0.1) 0%, transparent 50%);
+      animation: bgShift 20s ease-in-out infinite;
+    }
+
+    @keyframes bgShift {
+      0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+      33% { transform: scale(1.1) rotate(120deg); opacity: 0.8; }
+      66% { transform: scale(1.05) rotate(240deg); opacity: 0.9; }
+    }
+
+    .bg-grid {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(100,100,255,0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(100,100,255,0.08) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridFloat 25s linear infinite;
+      z-index: -1;
+    }
+
+    @keyframes gridFloat {
+      0% { background-position: 0 0, 0 0; }
+      100% { background-position: 60px 60px, 60px 60px; }
+    }
+
+    nav {
+      position: fixed;
+      top: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      backdrop-filter: blur(20px);
+      background: rgba(15,15,25,0.6);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 50px;
+      padding: 1rem 2.5rem;
+      z-index: 1000;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+
+    .nav-link {
+      color: #94a3b8;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.75rem 1rem;
+      border-radius: 25px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: #a8b2ff;
+      background: rgba(168,178,255,0.1);
+      transform: translateY(-2px);
+    }
+
+    section {
+      min-height: 100vh;
+      padding: 140px 2rem 4rem;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    .container { max-width: 1200px; width: 100%; margin: 0 auto; }
+
+    .slide-content {
+      opacity: 0;
+      transform: translateX(50px);
+      animation: slideIn 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    }
+    .slide-content.delay-1 { animation-delay: 0.2s; }
+    .slide-content.delay-2 { animation-delay: 0.4s; }
+    .slide-content.delay-3 { animation-delay: 0.6s; }
+
+    @keyframes slideIn { to { opacity: 1; transform: translateX(0); } }
+
+    .hero-title {
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      font-weight: 300;
+      line-height: 1;
+      background: linear-gradient(135deg, #f8fafc 0%, #a8b2ff 50%, #7de787 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 300;
+      color: #f1f5f9;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .section-subtitle {
+      color: #94a3b8;
+      font-size: 1.2rem;
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 3rem;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 24px;
+      padding: 2.5rem;
+      transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+    }
+
+    .card:hover {
+      transform: translateY(-12px);
+      border-color: rgba(168,178,255,0.3);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .project-card {
+      height: 420px;
+      border-radius: 20px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.03);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-header {
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.6s ease;
+      position: relative;
+    }
+
+    .project-header::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(to bottom, transparent, rgba(10,10,15,0.4));
+    }
+
+    .project-card:hover .project-header { transform: scale(1.1); }
+
+    .project-content {
+      padding: 1.5rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      background: rgba(15, 15, 25, 0.9);
+      z-index: 1;
+    }
+
+    .project-title { font-size: 1.25rem; margin-bottom: 0.5rem; color: #f1f5f9; }
+
+    .project-link {
+      padding: 0.6rem 1.2rem;
+      background: rgba(168,178,255,0.1);
+      border: 1px solid rgba(168,178,255,0.2);
+      border-radius: 10px;
+      color: #a8b2ff;
+      text-decoration: none;
+      font-weight: 500;
+      align-self: flex-start;
+      margin-top: auto;
+      transition: 0.3s;
+    }
+
+    .project-link:hover { background: rgba(168,178,255,0.2); transform: translateX(5px); }
+
+    .cta-button {
+      display: inline-flex;
+      padding: 1rem 2rem;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.4s;
+      box-shadow: 0 10px 20px rgba(102,126,234,0.3);
+    }
+
+    /* Contact Form */
+    .contact-form {
+      max-width: 600px;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.05);
+      padding: 2.5rem;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .form-input, .form-textarea {
+      width: 100%;
+      padding: 1rem;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      color: white;
+      margin-bottom: 1.5rem;
+    }
+
+    footer {
+      padding: 3rem 0;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .footer-socials { display: flex; justify-content: center; gap: 2rem; margin-bottom: 1.5rem; }
+    .footer-socials a img { width: 28px; height: 28px; filter: invert(1); transition: 0.3s; }
+
+    @media (max-width: 768px) {
+      nav { width: 95%; padding: 0.8rem; }
+      .nav-links { gap: 1rem; font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="animated-bg"></div>
+  <div class="bg-grid"></div>
+
+  <nav>
+    <ul class="nav-links">
+      <li><a href="#hero" class="nav-link active">Home</a></li>
+      <li><a href="#about" class="nav-link">About</a></li>
+      <li><a href="#projects" class="nav-link">Projects</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section id="hero">
+    <div class="container">
+      <h1 class="hero-title slide-content">Prajwal Kumbhar</h1>
+      <p class="section-subtitle slide-content delay-1">
+        Full-Stack Developer creating beautiful, performant digital experiences
+      </p>
+      <a href="#projects" class="cta-button slide-content delay-2">View My Work</a>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="container">
+      <h2 class="section-title slide-content">What I Create</h2>
+      <div class="cards-grid">
+        <div class="card slide-content delay-1">
+          <h3>Full-Stack Development</h3>
+          <p>Building scalable web applications with React, Node.js, and modern tooling.</p>
+        </div>
+        <div class="card slide-content delay-2">
+          <h3>UI/UX Design</h3>
+          <p>Designing intuitive interfaces with smooth animations and pixel-perfect detail.</p>
+        </div>
+        <div class="card slide-content delay-3">
+          <h3>Creative Coding</h3>
+          <p>Turning complex challenges into elegant solutions with clean, innovative code.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="container">
+      <h2 class="section-title slide-content">Featured Projects</h2>
+      <div class="projects-grid">
+        
+        <div class="project-card slide-content delay-1">
+          <div class="project-header" style="background-image: url('https://images.unsplash.com/photo-1611125832047-1d7ad1e8e48f?q=80&w=800&auto=format&fit=crop');"></div>
+          <div class="project-content">
+            <h3 class="project-title">Advanced Calculator</h3>
+            <p style="color: #94a3b8; font-size: 0.9rem;">Python-based calculator handling advanced arithmetic and complex logic operations.</p>
+            <a href="https://github.com/prajwalkumbhar123/Simple-Calculator" class="project-link" target="_blank">Source Code →</a>
+          </div>
+        </div>
+
+        <div class="project-card slide-content delay-2">
+          <div class="project-header" style="background-image: url('https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=800&auto=format&fit=crop');"></div>
+          <div class="project-content">
+            <h3 class="project-title">Grocery Store System</h3>
+            <p style="color: #94a3b8; font-size: 0.9rem;">Inventory management system with a smart automated cart and billing functionality.</p>
+            <a href="https://github.com/prajwalkumbhar123/Python-Mini-Project-Grocery-Store-Cart-System" class="project-link" target="_blank">Source Code →</a>
+          </div>
+        </div>
+
+        <div class="project-card slide-content delay-3">
+          <div class="project-header" style="background-image: url('https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?q=80&w=800&auto=format&fit=crop');"></div>
+          <div class="project-content">
+            <h3 class="project-title">Smart To-Do</h3>
+            <p style="color: #94a3b8; font-size: 0.9rem;">Clean task management application designed for productivity and deadline tracking.</p>
+            <a href="https://github.com/prajwalkumbhar123/Simple-To-do-list" class="project-link" target="_blank">Source Code →</a>
+          </div>
+        </div>
+
+        <div class="project-card slide-content delay-1">
+          <div class="project-header" style="background-image: url('https://images.unsplash.com/photo-1553481187-be93c21490a9?q=80&w=800&auto=format&fit=crop');"></div>
+          <div class="project-content">
+            <h3 class="project-title">Simple Dice-Roller</h3>
+            <p style="color: #94a3b8; font-size: 0.9rem;">A clean, randomized dice roller for tabletop gaming built with logic precision. 🎲</p>
+            <a href="https://github.com/prajwalkumbhar123/Dice_Roller" class="project-link" target="_blank">Source Code →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <h2 class="section-title slide-content">Let's Work Together</h2>
+      <form class="contact-form slide-content delay-2">
+        <input type="text" class="form-input" placeholder="Your Name" required>
+        <input type="email" class="form-input" placeholder="your@email.com" required>
+        <textarea class="form-textarea" rows="5" placeholder="Tell me about your project..." required></textarea>
+        <button type="submit" class="cta-button" style="width: 100%; justify-content: center; border: none; cursor: pointer;">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-socials">
+      <a href="https://www.linkedin.com/in/prajwal-kumbhar-2b949a398/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn"></a>
+      <a href="https://www.instagram.com/_prajwal.kumbhar_/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram"></a>
+      <a href="https://github.com/prajwalkumbhar123" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub"></a>
+    </div>
+    <div class="copyright">&copy; 2026 Prajwal Sachin Kumbhar. All rights reserved.</div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        document.querySelector(link.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      document.querySelectorAll('section').forEach(section => {
+        if (pageYOffset >= section.offsetTop - 150) current = section.getAttribute('id');
+      });
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href').includes(current)) link.classList.add('active');
+      });
+    });
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.style.animationPlayState = 'running'; });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.slide-content').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
