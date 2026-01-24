@@ -1,34 +1,62 @@
-# aurora-portfolio
-This website is a highly interactive, neo-futuristic portfolio built with HTML5 and CSS3 for structure and styling, GLSL (via OGL) for a GPU-accelerated aurora background, and JavaScript (via GSAP) for high-performance 3D magnetic project cards and spark particle effects.
 
-🚀 Interactive Neo-Futuristic Portfolio
-A high-performance, single-page personal website featuring advanced WebGL shaders, GPU-accelerated animations, and interactive UI components. Built as a seamless integration of modern web technologies to showcase development projects with a focus on User Experience (UX).
+---
 
-🛠️ Tech Stack
--> Markup: HTML5 (Semantic structure)
+## ▶️ How to Run the Website
 
--> Styling: CSS3 (Flexbox, Grid, Glassmorphism, Keyframe Animations)
+1. Download or clone this repository
+2. Open the project folder
+3. Double-click `index.html`
+4. The website will open in your default browser
 
--> Logic: JavaScript (ES6+ Modules)
+_No server or installation required._
 
--> Animation Engine: GSAP (GreenSock Animation Platform)
+---
 
--> Rendering: OGL (Minimal WebGL library)
+## 🧩 Sections Included
 
--> Shader Language: GLSL (OpenGL Shading Language) for GPU rendering
+- **Home** – Introduction with animated elements  
+- **About** – Skills and professional summary  
+- **Portfolio** – Featured projects with GitHub links  
+- **Contact** – Contact form interface  
+- **Footer** – Social media links and copyright  
 
+---
 
-🚀 Getting Started
-Clone this repository or download the index.html file.
+## 📸 Preview Projects
 
-Open the file in any modern web browser (Chrome, Firefox, Edge, or Safari).
+- **Simple Calculator (Python)**
+- **Grocery Store Cart System (Python)**
 
-Ensure you have an active internet connection to load the GSAP and OGL libraries via CDN.
+Each project includes:
+- Image preview
+- Short description
+- Direct GitHub repository link
 
-🎨 Customization
-Colors: Update the --glow-color and uColorStops in the shader logic to change the theme from "Aurora Green" to any palette.
+---
 
-Speed: Adjust the uTime multiplier in the JavaScript render loop to speed up or slow down the background flow.
+## 🎯 Purpose
 
-📝 License
-© 2026 Prajwal Sachin Kumbhar. All rights reserved.
+This project is ideal for:
+- Personal branding
+- Portfolio showcase
+- Frontend UI inspiration
+- Learning advanced CSS & JS animations
+
+---
+
+## 📄 License
+
+This project is open-source and free to use for learning and personal portfolio purposes.
+
+---
+
+## 👤 Author
+
+**Prajwal Sachin Kumbhar**
+
+🔗 GitHub: https://github.com/prajwalkumbhar123  
+🔗 LinkedIn: https://www.linkedin.com/in/prajwal-kumbhar-2b949a398/
+
+---
+
+⭐ If you like this project, consider giving it a star!
