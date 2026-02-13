@@ -59,4 +59,4 @@ This project is open-source and free to use for learning and personal portfolio 
 
 ---
 
-⭐ If you like this project, consider giving it a star!
+
